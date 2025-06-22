@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, OneToMany, ManyToMany } from "typeorm";
+import { TripPoint } from "./TripPoint";
+import { Person } from "./Person";
 
 @Entity({ schema: "main", name: "trips" })
 export class Trip {
@@ -22,4 +24,10 @@ export class Trip {
 
   @Column()
   year: number;
+
+  @OneToMany(() => TripPoint, tp => tp.trip)
+  tripPoints: TripPoint[];
+  
+  @ManyToMany(() => Person, person => person.trips)
+  people: Person[];
 }

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import TitleSubtitle from '@/components/TitleSubtitle';
-import useFetch from '@/hooks/useFetch';
+
 import LoadingError from '@/components/LoadingError';
 import { Country } from '@/lib/typeorm/entities/Country';
 

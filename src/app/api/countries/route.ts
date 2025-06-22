@@ -1,6 +1,6 @@
 // GET /api/countries/[country]
 import { NextResponse } from 'next/server';
-import { getDb } from '@/lib/init-db';
+import { getDb } from '@/lib/db';
 import { Country } from '@/lib/typeorm/entities/Country';
 
 export async function GET(req: Request, { params }: { params: { country: string } }) {

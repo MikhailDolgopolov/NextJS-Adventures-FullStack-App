@@ -1,4 +1,6 @@
-import { Entity, PrimaryColumn, Column } from "typeorm";
+import { Entity, PrimaryColumn, Column, JoinColumn, ManyToOne } from "typeorm";
+import { Sight } from "./Sight";
+import { TripPoint } from "./TripPoint";
 
 @Entity({ schema: "main", name: "visited_sights" })
 export class SightVisit {
@@ -10,4 +12,12 @@ export class SightVisit {
 
   @Column("date")
   visited_date: Date;
+  
+  @ManyToOne(() => TripPoint, tp => tp.sightVisits)
+  @JoinColumn({ name: "trippoint_id" })
+  trippoint: TripPoint;
+
+  @ManyToOne(() => Sight, sight => sight.sightVisits)
+  @JoinColumn({ name: "sight_id" })
+  sight: Sight;
 }

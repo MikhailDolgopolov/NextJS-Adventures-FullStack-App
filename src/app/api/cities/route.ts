@@ -1,4 +1,3 @@
-// src/app/api/cities/route.ts
 import { NextResponse } from 'next/server';
 import { AppDataSource } from '@/lib/typeorm/data-source';
 import { City } from '@/lib/typeorm/entities/City';

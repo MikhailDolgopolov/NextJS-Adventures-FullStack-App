@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import ButtonSelect from "./ButtonSelect";
-import useSwitch from "../../Hooks/useSwitch";
+import useSwitch from '@/hooks/useSwitch';
 
 function ButtonSelectWithInput<Type>({array, id, stringify, onSelect, defaultValue}:
-                                         {array:Type[]|undefined, id:string, stringify:{(arg0:Type):string}, deselect?:any,
+                                         {array:Type[]|undefined, id:string, stringify:{(arg0:Type):string}, deselect?:unknown,
     onSelect:{(arg0:Type|string):void}, defaultValue?:string}) {
     const [inputValue, setInput] = useState<string>("")
     const [inputCleared, clear] = useSwitch()

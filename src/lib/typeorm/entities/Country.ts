@@ -1,5 +1,6 @@
 // entities/Country.ts
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
+import { City } from "./City";
 
 @Entity({ schema: "main", name: "countries" })
 export class Country {
@@ -14,4 +15,7 @@ export class Country {
 
   @Column()
   capital_city: string;
+
+  @OneToMany(() => City, city => city.country)
+  cities: City[];
 }

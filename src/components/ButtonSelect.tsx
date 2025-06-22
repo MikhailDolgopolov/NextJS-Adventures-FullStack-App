@@ -1,47 +1,70 @@
+import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
-import { useCallback, useEffect } from "react";
-import Loading from "../Pages/Loading";
+interface ButtonSelectProps<Type> {
+  array?: Type[];
+  id: string;
+  stringify: (item: Type) => string;
+  onSelect: (item: Type) => void;
+  clearSwitch?: unknown;
+  resetSwitch?: boolean;
+  defaultValue?: string;
+  hideContent?: boolean;
+  children?: React.ReactNode;
+}
 
-function ButtonSelect<Type>({array, id, stringify, onSelect, children, clearSwitch, resetSwitch, defaultValue, hideContent}:
-                                {array:Type[]|undefined, id:string, stringify:{(arg0:Type):string}, clearSwitch?:any,resetSwitch?:boolean
-    defaultValue?:string, onSelect:{(arg0:Type):void}, children?:React.ReactNode[]|React.ReactNode, hideContent?:boolean}) {
-    
-     const deselectAll = useCallback(()=>{
-        let buttons=document.getElementsByClassName("my-select-button-"+id);
-        let iter = Array.from(buttons)
-        iter.forEach(function (e){
-            e.setAttribute("data-selected", "0")
-        })
-    }, [id])
-    function styleSelection(l_id:string){
-        if(!l_id) return
-        deselectAll()
-        document.getElementById(l_id)!.setAttribute("data-selected", "1")
-    }
-    useEffect(()=>{
-        deselectAll()
-    },[clearSwitch, deselectAll])
-    useEffect(()=>{
-        if (!array) return
-        if(!defaultValue) styleSelection(stringify(array[0]))
-        else styleSelection(defaultValue)
-    },[array, defaultValue, resetSwitch])
-    if(!array) return <Loading object={"данные"}/>
-    return (
-        <div className="flex-grid wide">
-            {!hideContent&&array.map(item=>
-                <button type="button" key={stringify(item)} id={stringify(item)}
-                        className={"flex-block hoverable my-select-button-"+id}
-                        onClick={()=>{
-                            styleSelection(stringify(item))
-                            onSelect(item)
-                }}>
-                    {stringify(item).includes("(")?<p className="note">{stringify(item)}</p> :stringify(item)}
-                </button>
-            )}
-            {children}
-        </div>
-    );
+function ButtonSelect<Type>({
+  array,
+  id,
+  stringify,
+  onSelect,
+  clearSwitch,
+  resetSwitch,
+  defaultValue,
+  hideContent,
+  children,
+}: ButtonSelectProps<Type>) {
+  const [selectedKey, setSelectedKey] = useState<string | undefined>(defaultValue);
+
+  // Reset selection when clearSwitch changes
+  useEffect(() => {
+    setSelectedKey(undefined);
+  }, [clearSwitch]);
+
+  // Initialize selection when array or defaultValue or resetSwitch changes
+  useEffect(() => {
+    if (!array || array.length === 0) return;
+    if (defaultValue) setSelectedKey(defaultValue);
+    else setSelectedKey(stringify(array[0]));
+  }, [array, defaultValue, resetSwitch, stringify]);
+
+  if (!array) return <Loading object="данные" />;
+
+  return (
+    <div className="flex-grid wide">
+      {!hideContent &&
+        array.map((item) => {
+          const key = stringify(item);
+          const isSelected = key === selectedKey;
+          return (
+            <button
+              type="button"
+              key={key}
+              id={key}
+              data-selected={isSelected ? "1" : "0"}
+              className={`flex-block hoverable my-select-button-${id}`}
+              onClick={() => {
+                setSelectedKey(key);
+                onSelect(item);
+              }}
+            >
+              {key.includes("(") ? <p className="note">{key}</p> : key}
+            </button>
+          );
+        })}
+      {children}
+    </div>
+  );
 }
 
 export default ButtonSelect;

@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import LoadingError from './LoadingError';
-import useFetch from '@/hooks/useFetch';
+
 
 interface EntityListProps<T> {
   endpoint: string;

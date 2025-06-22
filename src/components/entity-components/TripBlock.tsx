@@ -1,19 +1,27 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { Trip } from '@/lib/typeorm/entities/Trip';
 import React from 'react';
-import {useNavigate} from 'react-router-dom';
-import {getTripDate, Trip} from "../../../Helpers/DataTypes";
-import Date from "../../Fragments/date";
+import DateSpan from '../DateSpan';
 
+type TripBlockProps = {
+  trip: Trip;
+};
 
-function TripBlock({trip}:{trip:Trip}) {
-    const navigate = useNavigate();
-    return (
-            <button className="grid-block highlight" onClick={()=>navigate('/trip/'+trip.trip_id)}>
-                <h3>{trip.title + " "+trip.year}</h3>
-                <Date d1={trip.start_date} d2={trip.end_date}/>
-                {trip.description !== null &&
-                <p>{trip.description}</p>}
-            </button>
-    );
-}
+const TripBlock = ({ trip }: TripBlockProps) => {
+  const router = useRouter();
+
+  return (
+    <button
+      className="grid-block highlight text-left"
+      onClick={() => router.push(`/trip/${trip.trip_id}`)}
+    >
+      <h3>{`${trip.title} ${trip.year}`}</h3>
+      <DateSpan d1={trip.start_date} d2={trip.end_date} />
+      {trip.description && <p>{trip.description}</p>}
+    </button>
+  );
+};
 
 export default TripBlock;

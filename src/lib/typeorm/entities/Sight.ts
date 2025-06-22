@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { City } from "./City";
+import { SightVisit } from "./SightVisist";
 
 @Entity({ schema: "main", name: "sights" })
 export class Sight {
@@ -7,7 +9,9 @@ export class Sight {
 
   @Column()
   name: string;
-
+  
+  @ManyToOne(() => City, c => c.sights)
+  @JoinColumn({ name: 'city', referencedColumnName: 'city' })
   @Column({ nullable: true })
   city: string | null;
 
@@ -22,4 +26,7 @@ export class Sight {
 
   @Column()
   image_link: string;
+
+  @OneToMany(() => SightVisit, visit => visit.sight)
+  sightVisits: SightVisit[];
 }

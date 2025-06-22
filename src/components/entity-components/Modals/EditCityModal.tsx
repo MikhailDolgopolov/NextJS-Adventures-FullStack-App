@@ -1,32 +1,40 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import CustomModal from '@/components/CustomModal';
-import SearchInput from '@/components/SearchInput';
-import useFetch from '@/hooks/useFetch';
+import { FC, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { post } from '@/lib/api';
+import useSWR from 'swr';
+import CustomModal from '@/components/CustomModal';
+import SearchInput from '@/components/SearchInput';
 import { City } from '@/lib/typeorm/entities/City';
 import { Country } from '@/lib/typeorm/entities/Country';
+import { post } from '@/lib/api';
+
+const fetcher = (url: string) =>
+  fetch(url).then(r => {
+    if (!r.ok) throw new Error('Failed to fetch');
+    return r.json() as Promise<Country[]>;
+  });
 
 interface EditCityModalProps {
   city: City;
   openTrigger: React.ReactNode;
   onChange: () => void;
+  onClose?: () => void;
 }
 
-export default function EditCityModal({ city, openTrigger, onChange }: EditCityModalProps) {
+export const EditCityModal: FC<EditCityModalProps> = ({
+  city,
+  openTrigger,
+  onChange,
+  onClose,
+}) => {
   const router = useRouter();
+  const { data: countries, error } = useSWR<Country[]>('/api/countries', fetcher);
 
-  // Fetch list of all countries
-  const [countries, loadingCountries] = useFetch<Country[]>('countries');
-  const [selectedCountry, setCountry] = useState<string>(city.country);
+  const { register, handleSubmit, reset, watch } = useForm<City>();
 
-  // Set up form
-  const { register, handleSubmit, reset } = useForm<City>();
-
-  // When city prop changes (or modal opens), reset form values
+  // Reset form whenever `city` changes or modal re-opens
   useEffect(() => {
     reset({
       city: city.city,
@@ -34,52 +42,61 @@ export default function EditCityModal({ city, openTrigger, onChange }: EditCityM
       founded_year: city.founded_year,
       country: city.country,
     });
-    setCountry(city.country);
   }, [city, reset]);
 
-  if (loadingCountries && !countries) {
-    return null;
-  }
-  if (!countries) {
-    return <p className="note">Не удалось загрузить список стран.</p>;
-  }
-
+  // Submission handler
   const onSubmit: SubmitHandler<City> = async (data) => {
-    data.country = selectedCountry;
     try {
-      const updated: City = await post<City, City>(`cities/update/${city.city}`, data);
-      onChange();    // signal parent to refetch
-      // If the city key changed, navigate to new URL
+      const updated: City = await post<City, City>(
+        `cities/update/${city.city}`,
+        data
+      );
+      onChange(); // notify parent
       if (updated.city !== city.city) {
         router.push(`/data/cities/${updated.city}`);
       }
-    } catch (err) {
-      console.error('City update failed', err);
+    } catch (e) {
+      console.error('Update failed', e);
       alert('Ошибка при обновлении города.');
     }
   };
 
+  // Loading / Error states for country list
+  if (error) {
+    return <p className="note">Не удалось загрузить страны.</p>;
+  }
+  if (!countries) {
+    return null; // or a spinner
+  }
+
   return (
-    <CustomModal header="Изменить данные" trigger={openTrigger} onClose={reset}>
+    <CustomModal
+      header="Изменить город"
+      trigger={openTrigger}
+      onClose={() => {
+        onChange();
+        onClose?.();
+        reset();
+      }}
+    >
       <form className="vert-window" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-row">
           <label>Название:</label>
           <input
             defaultValue={city.city}
             {...register('city', { required: true })}
-            required
           />
         </div>
 
         <div className="form-row">
           <label>Страна:</label>
           <SearchInput<Country>
-            id="allCountries"
+            id="countrySearch"
             array={countries}
-            stringify={(c) => c.country}
+            stringify={c => c.country}
             defaultValue={city.country}
             onlySelect
-            onSetValue={(c) => setCountry(c)}
+            onSetValue={value => reset({ ...watch(), country: value })}
           />
         </div>
 
@@ -101,8 +118,12 @@ export default function EditCityModal({ city, openTrigger, onChange }: EditCityM
           />
         </div>
 
-        <button type="submit">Сохранить</button>
+        <button type="submit" className="btn btn-primary">
+          Сохранить
+        </button>
       </form>
     </CustomModal>
   );
-}
+};
+
+export default EditCityModal;

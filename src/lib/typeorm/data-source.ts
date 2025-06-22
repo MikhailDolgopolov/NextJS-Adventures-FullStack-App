@@ -1,4 +1,3 @@
-// src/lib/typeorm/data-source.ts
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { City } from './entities/City';

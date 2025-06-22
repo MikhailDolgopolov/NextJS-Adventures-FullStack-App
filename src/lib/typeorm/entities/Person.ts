@@ -1,5 +1,6 @@
 // entities/Person.ts
-import { Entity, Column, PrimaryColumn } from "typeorm";
+import { Entity, Column, PrimaryColumn, JoinTable, ManyToMany } from "typeorm";
+import { Trip } from "./Trip";
 
 @Entity({ schema: "main", name: "people" })
 export class Person {
@@ -27,4 +28,11 @@ export class Person {
   toString(): string {
     return this.generalName();
   }
+  @ManyToMany(() => Trip, trip => trip.people)
+  @JoinTable({
+    name: "participation",
+    joinColumn: { name: "person_id", referencedColumnName: "person_id" },
+    inverseJoinColumn: { name: "trip_id", referencedColumnName: "trip_id" },
+  })
+  trips: Trip[];
 }

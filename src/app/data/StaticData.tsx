@@ -10,7 +10,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import AddPersonModal from "../../components/entity-components/Modals/AddPersonModal";
 import SouvenirRow from "../../components/entity-components/Rows/SouvenirRow";
 import useSwitch from '@/hooks/useSwitch';
-import useFetch from '@/hooks/useFetch';
+
 import { AdventuresStatistics } from '@/Helpers/HelperTypes';
 import LoadingError from '@/components/LoadingError';
 import TitleSubtitle from '@/components/TitleSubtitle';

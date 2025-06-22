@@ -6,7 +6,7 @@ import NavigateHome from "./NavigateHome"
 function TitleSubtitle({title, subtitle, hideHomeButton}:{title:string, subtitle?:string, hideHomeButton?:boolean}) {
     useEffect(()=>{
         document.title=title;
-    }, [])
+    }, [title])
     return (
         <div className="full-title">
             {hideHomeButton?<div></div>:<NavigateHome/>}

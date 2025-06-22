@@ -1,5 +1,5 @@
-// entities/Person.ts
-import { Entity, Column, PrimaryColumn, JoinTable, ManyToMany } from "typeorm";
+import type { Relation } from 'typeorm';
+import { Entity, Column, PrimaryColumn, JoinTable, ManyToMany, } from "typeorm";
 import { Trip } from "./Trip";
 
 @Entity({ schema: "main", name: "people" })
@@ -10,13 +10,13 @@ export class Person {
   @Column()
   first_name: string;
 
-  @Column()
+  @Column({type:"text", nullable: true })
   last_name: string;
 
-  @Column()
+  @Column({type:"text", nullable: true })
   patronym: string;
 
-  @Column()
+  @Column({type:"text", nullable: true })
   alias: string;
 
   generalName(): string {
@@ -34,5 +34,5 @@ export class Person {
     joinColumn: { name: "person_id", referencedColumnName: "person_id" },
     inverseJoinColumn: { name: "trip_id", referencedColumnName: "trip_id" },
   })
-  trips: Trip[];
+  trips: Relation<Trip[]>;
 }

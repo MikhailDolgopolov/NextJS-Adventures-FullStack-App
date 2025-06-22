@@ -1,3 +1,4 @@
+import type { Relation } from "typeorm";
 import { Entity, Column, PrimaryColumn, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { City } from "./City";
 import { SightVisit } from "./SightVisist";
@@ -12,21 +13,21 @@ export class Sight {
   
   @ManyToOne(() => City, c => c.sights)
   @JoinColumn({ name: 'city', referencedColumnName: 'city' })
-  @Column({ nullable: true })
-  city: string | null;
+  @Column({type:"text", nullable: true })
+  city: Relation<string | null>;
 
   @Column()
   type: string;
 
-  @Column()
+  @Column({type:"numeric", nullable: true })
   created_year: number;
 
-  @Column()
+  @Column({type:"text", nullable: true })
   description: string;
 
-  @Column()
+  @Column({type:"text", nullable: true })
   image_link: string;
 
   @OneToMany(() => SightVisit, visit => visit.sight)
-  sightVisits: SightVisit[];
+  sightVisits: Relation<SightVisit[]>;
 }

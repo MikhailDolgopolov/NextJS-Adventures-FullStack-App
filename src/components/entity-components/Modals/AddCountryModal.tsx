@@ -5,15 +5,15 @@ import React from 'react';
 import {useForm} from "react-hook-form";
 
 
-function AddCountryModal({addCountryButton, onAdd}:{onAdd:()=>void,
-    addCountryButton:React.ReactNode}) {
+function AddCountryModal({openTrigger, onAdd}:{onAdd:()=>void,
+    openTrigger:React.ReactNode}) {
     const {register, handleSubmit, reset} = useForm<Country>();
     const onSubmit = handleSubmit((data,e?: React.BaseSyntheticEvent)=>{
         e!.preventDefault()
         post("countries/create/", JSON.stringify(data)).then(()=>{onAdd(); reset();})
     })
     return (
-        <CustomModal header="Добавить страну" trigger={addCountryButton} onClose={reset}>
+        <CustomModal header="Добавить страну" trigger={openTrigger} onCloseCallback={reset}>
             <form className="vert-window" onSubmit={onSubmit}>
                 <div className="form-row">
                     <label>Название</label>

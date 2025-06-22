@@ -17,9 +17,9 @@ const TripBlock = ({ trip }: TripBlockProps) => {
       className="grid-block highlight text-left"
       onClick={() => router.push(`/trip/${trip.trip_id}`)}
     >
-      <h3>{`${trip.title} ${trip.year}`}</h3>
+      <h3>{`${trip.title}`}</h3>
       <DateSpan d1={trip.start_date} d2={trip.end_date} />
-      {trip.description && <p>{trip.description}</p>}
+      {trip.description?.trim() && <p>{trip.description}</p>}
     </button>
   );
 };

@@ -11,15 +11,15 @@ export class Souvenir {
   @Column()
   trippoint_id: number;
 
-  @Column({ nullable: true })
+  @Column({type:"text", nullable: true })
   city: string | null;
 
-  @Column({ nullable: true })
+  @Column({type:"text", nullable: true })
   type: string | null;
 
-  @Column({ nullable: true })
+  @Column({type:"text", nullable: true })
   material: string | null;
 
-  @Column()
-  description: string;
+  @Column({type:"text", nullable: true })
+  description: string | null;
 }

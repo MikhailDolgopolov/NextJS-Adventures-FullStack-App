@@ -2,12 +2,12 @@
 
 import { FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faHome} from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 function NavigateHome() {
     const router=useRouter();
     return (
-        <button className="inline center-child" onPointerEnter={()=>router.prefetch("/")} onClick={()=>router.push("/")}>
+        <button className="inline center-child" onClick={()=>router.push("/")}>
             <FontAwesomeIcon icon={faHome} size="lg"/>
         </button>
     );

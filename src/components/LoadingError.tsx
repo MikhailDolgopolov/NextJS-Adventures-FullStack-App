@@ -1,6 +1,6 @@
 import React from 'react';
 import Loading from "./Loading";
-import SmartWaiter from "../../Helpers/SmartWaiter";
+import SmartWaiter from './SmartWaiter';
 
 function LoadingError({loadingObject, loading, wholePage}:{loadingObject:string, loading:boolean, wholePage?:boolean}) {
     return <SmartWaiter timesUp={loading}>

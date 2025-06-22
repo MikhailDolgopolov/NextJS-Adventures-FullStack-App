@@ -1,3 +1,4 @@
+import type { Relation } from "typeorm";
 import { Entity, Column, PrimaryColumn, OneToMany, ManyToMany } from "typeorm";
 import { TripPoint } from "./TripPoint";
 import { Person } from "./Person";
@@ -13,21 +14,18 @@ export class Trip {
   @Column("date")
   start_date: Date;
 
-  @Column("date")
+  @Column("date", { nullable: true })
   end_date: Date;
 
-  @Column()
-  description: string;
+  @Column({type:"text", nullable: true })
+  description: string | null;
 
-  @Column()
-  photo_link: string;
-
-  @Column()
-  year: number;
+  @Column({type:"text", nullable: true })
+  photo_link: string | null;
 
   @OneToMany(() => TripPoint, tp => tp.trip)
-  tripPoints: TripPoint[];
+  tripPoints: Relation<TripPoint[]>;
   
   @ManyToMany(() => Person, person => person.trips)
-  people: Person[];
+  people: Relation<Person[]>;
 }

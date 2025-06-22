@@ -4,8 +4,8 @@ import { Person } from '@/lib/typeorm/entities/Person';
 import React from 'react';
 import {useForm} from "react-hook-form";
 
-function AddPersonModal({addPersonButton, onAdd}:{onAdd:{():void}
-    addPersonButton:React.ReactNode}) {
+function AddPersonModal({openTrigger, onAdd}:{onAdd:{():void}
+    openTrigger:React.ReactNode}) {
     const {register, handleSubmit, reset} = useForm<Person>();
     const onSubmit = handleSubmit((data, e?: React.BaseSyntheticEvent)=>{
         e!.preventDefault()
@@ -13,7 +13,7 @@ function AddPersonModal({addPersonButton, onAdd}:{onAdd:{():void}
     })
 
     return (
-        <CustomModal header="Добавить человека" trigger={addPersonButton} onClose={reset}>
+        <CustomModal header="Добавить человека" trigger={openTrigger} onCloseCallback={reset}>
             <form className="vert-window" onSubmit={onSubmit}>
                 <div className="form-row">
                     <label>Имя: </label>

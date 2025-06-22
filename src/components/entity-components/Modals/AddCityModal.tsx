@@ -64,7 +64,7 @@ export const AddCityModal: FC<Props> = ({ openTrigger, onAdd, defaultCountry }) 
     <CustomModal
       header="Добавить город"
       trigger={openTrigger}
-      onClose={() => {
+      onCloseCallback={() => {
         reset({ city: '', population: 0, founded_year: 0, country: defaultCountry || '' });
       }}
     >

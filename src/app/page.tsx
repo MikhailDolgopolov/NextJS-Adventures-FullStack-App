@@ -1,30 +1,26 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import TitleSubtitle from "@/components/TitleSubtitle";
-import useFetch from "@/hooks/useFetch";
-import LoadingError from '@/components/LoadingError';
+import Link from 'next/link';
+import TitleSubtitle from '@/components/TitleSubtitle';
+
+export const metadata = {
+  title: 'Главная страница',
+};
 
 export default function Home() {
-    const router = useRouter();
-    const [result, load] = useFetch("");
+  return (
+    <>
+      <TitleSubtitle title="Главная страница" hideHomeButton />
 
-    if (load) return <LoadingError loading={load} loadingObject="приложение" wholePage={true} />;
-    if (!result) return <LoadingError loading={false} loadingObject="приложение" wholePage={true} />;
-
-    return (
-        <>
-            <TitleSubtitle title="Главная страница" hideHomeButton={true} />
-            <div className="vert-margins">
-                <button className="big side-margins" onClick={() => router.push('/trips/')}>
-                    Все путешествия
-                </button>
-                <button className="big side-margins" onClick={() => router.push('/data/')}>
-                    База данных
-                </button>
-                <button className="big side-margins" onClick={() => router.push('/files/')}>
-                    Файлы
-                </button>
-            </div>
-        </>
-    );
+      <div className="vert-margins flex justify-center gap-4">
+        <Link href="/trips" className="big side-margins">
+          Все путешествия
+        </Link>
+        <Link href="/data" className="big side-margins">
+          База данных
+        </Link>
+        <Link href="/files" className="big side-margins">
+          Файлы
+        </Link>
+      </div>
+    </>
+  );
 }

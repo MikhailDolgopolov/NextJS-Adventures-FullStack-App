@@ -22,8 +22,11 @@ export type CustomModalProps = {
   freeClose?: boolean;
   /** Modal body content */
   children: ReactNode;
+  /** Callback fired on modal open */
+  onOpenCallback?: () => void;
   /** Callback fired on modal close */
-  onClose?: () => void;
+  onCloseCallback?: () => void;
+  
 };
 
 const CustomModal: FC<CustomModalProps> = ({
@@ -31,7 +34,8 @@ const CustomModal: FC<CustomModalProps> = ({
   header = 'Без названия',
   freeClose = false,
   children,
-  onClose: onCloseCallback,
+  onOpenCallback,
+  onCloseCallback,
 }) => {
   const { isOpen, onOpenChange } = useDisclosure();
 
@@ -40,6 +44,9 @@ const CustomModal: FC<CustomModalProps> = ({
     onOpenChange();
     if (!open && typeof onCloseCallback === 'function') {
       onCloseCallback();
+    }
+    if (open && typeof onOpenCallback === 'function') {
+      onOpenCallback();
     }
   };
 

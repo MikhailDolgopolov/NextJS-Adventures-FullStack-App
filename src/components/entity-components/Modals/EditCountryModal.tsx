@@ -61,7 +61,7 @@ const EditCountryModal: FC<EditCountryModalProps> = ({
   });
 
   return (
-    <CustomModal trigger={trigger} header="Изменить данные" onClose={onChange}>
+    <CustomModal trigger={trigger} header="Изменить данные" onCloseCallback={onChange}>
       <form className="vert-window" onSubmit={onSubmit}>
         {/* ... other form rows ... */}
 

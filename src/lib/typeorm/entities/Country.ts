@@ -1,4 +1,4 @@
-// entities/Country.ts
+import type { Relation } from "typeorm";
 import { Entity, Column, PrimaryColumn, OneToMany } from "typeorm";
 import { City } from "./City";
 
@@ -7,15 +7,15 @@ export class Country {
   @PrimaryColumn()
   country: string;
 
-  @Column()
+  @Column({type:"numeric", nullable: true })
   population: number;
 
-  @Column()
+  @Column({type:"numeric", nullable: true })
   area: number;
 
-  @Column()
+  @Column({type:"text", nullable: true })
   capital_city: string;
 
   @OneToMany(() => City, city => city.country)
-  cities: City[];
+  cities: Relation<City[]>;
 }

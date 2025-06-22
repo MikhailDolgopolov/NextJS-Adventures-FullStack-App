@@ -73,7 +73,7 @@ export const EditCityModal: FC<EditCityModalProps> = ({
     <CustomModal
       header="Изменить город"
       trigger={openTrigger}
-      onClose={() => {
+      onCloseCallback={() => {
         onChange();
         onClose?.();
         reset();

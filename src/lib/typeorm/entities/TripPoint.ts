@@ -1,3 +1,4 @@
+import type { Relation } from "typeorm";
 import { Entity, Column, PrimaryColumn, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { City } from "./City";
 import { Trip } from "./Trip";
@@ -16,13 +17,13 @@ export class TripPoint {
 
   @ManyToOne(() => Trip, trip => trip.tripPoints)
   @JoinColumn({ name: 'trip_id' })
-  trip: Trip;
+  trip: Relation<Trip>;
 
   @ManyToOne(() => City, city => city.tripPoints, { nullable: true })
   @JoinColumn({ name: 'city', referencedColumnName: 'city' })
-  city: City;
+  city: Relation<City | null>;
 
   @OneToMany(() => SightVisit, visit => visit.trippoint)
-  sightVisits: SightVisit[];
+  sightVisits: Relation<SightVisit[]>;
 
 }

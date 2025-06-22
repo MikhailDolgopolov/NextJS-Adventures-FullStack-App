@@ -1,12 +1,7 @@
-import {useEffect} from 'react';
-
-import ThemeButton from "./ThemeButton";
+// import ThemeButton from "./ThemeButton";
 import NavigateHome from "./NavigateHome"
 
 function TitleSubtitle({title, subtitle, hideHomeButton}:{title:string, subtitle?:string, hideHomeButton?:boolean}) {
-    useEffect(()=>{
-        document.title=title;
-    }, [title])
     return (
         <div className="full-title">
             {hideHomeButton?<div></div>:<NavigateHome/>}
@@ -14,7 +9,7 @@ function TitleSubtitle({title, subtitle, hideHomeButton}:{title:string, subtitle
                 <h1>{title}</h1>
                 {(subtitle) && <h4>{subtitle}</h4>}
             </div>
-            <ThemeButton/>
+            {/* <ThemeButton/> */}
         </div>
     );
 }

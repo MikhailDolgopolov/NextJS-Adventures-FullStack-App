@@ -4,10 +4,10 @@ import { City } from "./City";
 import { Trip } from "./Trip";
 import { SightVisit } from "./SightVisist";
 
-@Entity({ schema: "main", name: "trippoints" })
+@Entity({ schema: "main", name: "trip_points" })
 export class TripPoint {
   @PrimaryColumn()
-  trippoint_id: number;
+  trip_point_id: number;
 
   @Column()
   title: string;
@@ -23,7 +23,7 @@ export class TripPoint {
   @JoinColumn({ name: 'city', referencedColumnName: 'city' })
   city: Relation<City | null>;
 
-  @OneToMany(() => SightVisit, visit => visit.trippoint)
+  @OneToMany(() => SightVisit, visit => visit.trip_point)
   sightVisits: Relation<SightVisit[]>;
 
 }

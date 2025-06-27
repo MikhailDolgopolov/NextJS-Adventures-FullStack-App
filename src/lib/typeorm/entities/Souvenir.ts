@@ -9,7 +9,7 @@ export class Souvenir {
   name: string;
 
   @Column()
-  trippoint_id: number;
+  trip_point_id: number;
 
   @Column({type:"text", nullable: true })
   city: string | null;

@@ -30,7 +30,7 @@ export const EditCityModal: FC<EditCityModalProps> = ({
   onClose,
 }) => {
   const router = useRouter();
-  const { data: countries, error } = useSWR<Country[]>('/api/countries', fetcher);
+  const { data: countries, error } = useSWR<Country[]>('/api/countries/all', fetcher);
 
   const { register, handleSubmit, reset, watch } = useForm<City>();
 

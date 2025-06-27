@@ -2,15 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   webpack(config) {
-    // Prevent Webpack from trying to bundle optional TypeORM drivers
-    config.externals = config.externals || [];
-
-    config.externals.push({
-      'react-native-sqlite-storage': 'commonjs react-native-sqlite-storage',
-      '@sap/hana-client': 'commonjs @sap/hana-client',
-      'mysql': 'commonjs mysql',
-    });
-
+    config.externals = [
+      // keep any existing externals
+      ...(config.externals || []),
+      // skip bundling all of typeorm
+      { typeorm: "commonjs typeorm" },
+      // skip its optional drivers
+      { mysql: "commonjs mysql" },
+      { "@sap/hana-client": "commonjs @sap/hana-client" },
+      { "react-native-sqlite-storage": "commonjs react-native-sqlite-storage" },
+    ];
+    // also suppress “require(expression)” warnings
+    if (config.module) {
+      config.module.exprContextCritical = false;
+    }
     return config;
   },
 };

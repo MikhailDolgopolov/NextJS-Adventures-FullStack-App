@@ -36,6 +36,7 @@ const CityPageClient: FC<Props> = ({ city, initialSouvenirs, initialSights }) =>
       router.back();
     }
   };
+  
 
   return (
     <>

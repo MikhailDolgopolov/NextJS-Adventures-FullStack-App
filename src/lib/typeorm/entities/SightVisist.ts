@@ -6,7 +6,7 @@ import { TripPoint } from "./TripPoint";
 @Entity({ schema: "main", name: "visited_sights" })
 export class SightVisit {
   @PrimaryColumn()
-  trippoint_id: number;
+  trip_point_id: number;
 
   @PrimaryColumn()
   sight_id: number;
@@ -15,8 +15,8 @@ export class SightVisit {
   visited_date: Date;
   
   @ManyToOne(() => TripPoint, tp => tp.sightVisits)
-  @JoinColumn({ name: "trippoint_id" })
-  trippoint: Relation<TripPoint>;
+  @JoinColumn({ name: "trip_point_id" })
+  trip_point: Relation<TripPoint>;
 
   @ManyToOne(() => Sight, sight => sight.sightVisits)
   @JoinColumn({ name: "sight_id" })

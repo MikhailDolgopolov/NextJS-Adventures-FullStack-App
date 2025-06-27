@@ -23,7 +23,7 @@ interface Props {
 }
 
 export const AddCityModal: FC<Props> = ({ openTrigger, onAdd, defaultCountry }) => {
-  const { data: countries, error } = useSWR<Country[]>('/api/countries', fetcher);
+  const { data: countries, error } = useSWR<Country[]>('/api/countries/all', fetcher);
   const {
     register,
     handleSubmit,

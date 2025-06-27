@@ -4,7 +4,7 @@ import { TripPoint } from "./TripPoint";
 import { Sight } from "./Sight";
 import { Souvenir } from "./Souvenir";
 
-@Entity({ schema: "main", name: "Cities" })
+@Entity({ schema: "main", name: "cities" })
 export class City {
   @PrimaryColumn()
   city: string;

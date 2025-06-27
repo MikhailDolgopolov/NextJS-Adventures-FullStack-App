@@ -10,13 +10,14 @@ import { notFound } from "next/navigation";
 type Params = { country: string };
 
 export default async function CountryPage({ params }: { params: Params }) {
+  const _p = await params
+  const country = decodeURIComponent(_p.country);
   const db = await getDb();
+
   const countryObj = await db.getRepository(Country).findOneBy({ country: params.country });
   if (!countryObj) {
     return notFound();
   }
- const country = params.country;
-
   // Define query functions cleanly
   const fetchCities = db.getRepository(City).find({ where: { country } });
 

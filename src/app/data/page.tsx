@@ -16,10 +16,8 @@ import AddCountryModal from '@/components/entity-components/Modals/AddCountryMod
 import AddCityModal    from '@/components/entity-components/Modals/AddCityModal';
 import AddPersonModal  from '@/components/entity-components/Modals/AddPersonModal';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus }        from '@fortawesome/free-solid-svg-icons';
-
 import { AdventuresStatistics } from '@/helpers/HelperTypes';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 const fetcher = (url: string) =>
   fetch(url).then((res) => {
@@ -63,7 +61,7 @@ const StaticData: FC = () => {
                 <tr className="hoverable button">
                   <AddCountryModal openTrigger={
                     <td colSpan={4} className="text-center">
-                      <FontAwesomeIcon icon={faPlus} />
+                      <PlusIcon />
                     </td>
                   } onAdd={() => mutate('/api/statistics')} />
                 </tr>
@@ -90,7 +88,7 @@ const StaticData: FC = () => {
                 <tr className="hoverable button">
                   <AddCityModal openTrigger={
                     <td colSpan={4} className="text-center">
-                      <FontAwesomeIcon icon={faPlus} />
+                      <PlusIcon />
                     </td>
                   } onAdd={() => mutate('/api/statistics')} defaultCountry="" />
                 </tr>
@@ -116,7 +114,7 @@ const StaticData: FC = () => {
                 <tr className="hoverable button">
                   <AddPersonModal openTrigger={
                     <td colSpan={3} className="text-center">
-                      <FontAwesomeIcon icon={faPlus} />
+                      <PlusIcon />
                     </td>
                   } onAdd={() => mutate('/api/statistics')} />
                 </tr>

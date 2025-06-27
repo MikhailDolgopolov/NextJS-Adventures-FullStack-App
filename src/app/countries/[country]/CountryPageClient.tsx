@@ -9,14 +9,13 @@ import SouvenirRow from '@/components/entity-components/Rows/SouvenirRow';
 import SightRow from '@/components/entity-components/Rows/SightRow';
 import TripBlock from '@/components/entity-components/TripBlock';
 import AddCityModal from '@/components/entity-components/Modals/AddCityModal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import { Country } from '@/lib/typeorm/entities/Country';
 import { City } from '@/lib/typeorm/entities/City';
 import { Sight } from '@/lib/typeorm/entities/Sight';
 import { Souvenir } from '@/lib/typeorm/entities/Souvenir';
 import { Trip } from '@/lib/typeorm/entities/Trip';
+import { PlusIcon } from '@heroicons/react/24/outline';
 
 type Props = {
   country: Country;
@@ -134,7 +133,7 @@ const CountryPageClient: FC<Props> = ({ country, cities, sights, souvenirs, trip
               <AddCityModal
                 openTrigger={
                   <button className="big center-child square">
-                    <FontAwesomeIcon icon={faPlus} size="2x" />
+                    <PlusIcon />
                   </button>
                 }
                 onAdd={() => {

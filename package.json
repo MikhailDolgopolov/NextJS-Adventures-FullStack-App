@@ -3,20 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
-    "@fortawesome/react-fontawesome": "^0.2.2",
-    "@heroui/modal": "^2.2.19",
+    "@heroicons/react": "^2.2.0",
     "@heroui/react": "^2.7.11",
-    "@heroui/system": "^2.4.18",
-    "@heroui/theme": "^2.4.17",
-    "framer-motion": "^12.18.1",
     "next": "15.3.4",
     "pg": "^8.16.2",
     "react": "^19.1.0",

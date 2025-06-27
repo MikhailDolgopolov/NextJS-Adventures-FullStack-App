@@ -11,13 +11,7 @@ const fetcher = (url: string) =>
     return res.json() as Promise<number[]>;
   });
 
-interface YearSplitTripsProps {
-  /** Toggle this boolean to force the list of years to revalidate */
-  tripsChanged: boolean;
-}
-
-export default function YearSplitTrips({ tripsChanged }: YearSplitTripsProps) {
-  // SWR key includes tripsChanged so it re-fetches when that value flips
+export default function YearSplitTrips() {
   const { data: years, error, isLoading } = useSWR<number[]>(
     '/api/trips/years',
     fetcher

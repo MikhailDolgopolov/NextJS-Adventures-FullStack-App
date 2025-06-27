@@ -1,24 +1,26 @@
-import Link from 'next/link';
-import TitleSubtitle from '@/components/TitleSubtitle';
+'use client'
 
-export const metadata = {
-  title: 'Главная страница',
-};
+import TitleSubtitle from '@/components/TitleSubtitle';
+import { Button } from '@heroui/react';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
       <TitleSubtitle title="Главная страница" hideHomeButton />
 
-      <div className="vert-margins flex justify-center gap-4">
-        <Link href="/trips" className="big side-margins">
-          Все путешествия
+      <div className="flex justify-center gap-6 mt-10">
+        <Link href="/trips">
+          <Button variant="bordered" size="lg">Все путешествия</Button>
         </Link>
-        <Link href="/data" className="big side-margins">
-          База данных
+        <Link href="/data">
+          <Button variant="bordered" size="lg">База данных</Button>
         </Link>
-        <Link href="/files" className="big side-margins">
-          Файлы
+        <Link href="/cities">
+          <Button variant="bordered" size="lg">Города</Button>
+        </Link>
+        <Link href="/countries">
+          <Button variant="bordered" size="lg">Страны</Button>
         </Link>
       </div>
     </>

@@ -10,8 +10,7 @@ import {
   Button,
   useDisclosure,
 } from '@heroui/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export type CustomModalProps = {
   /** The element that opens the modal */
@@ -64,7 +63,7 @@ const CustomModal: FC<CustomModalProps> = ({
               <ModalHeader className="flex items-center justify-between">
                 <h2>{header}</h2>
                 <button onClick={onClose}>
-                  <FontAwesomeIcon icon={faXmark} />
+                  <XMarkIcon />
                 </button>
               </ModalHeader>
 
